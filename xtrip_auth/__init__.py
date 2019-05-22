@@ -18,7 +18,6 @@ __status__ = "Development"
 import binascii
 import hashlib
 import random
-import base64
 import os
 
 
@@ -36,20 +35,35 @@ class XStripKey():
     def content(self):
         return self.__encoded
 
+    @property
+    def iterations(self):
+        return self.__iterations
+
     def verify(self, key, encoder=noop):
         return self.__encoded == XStripKeyConstruct(key).generateKey(salt=self.__salt, iterations=self.__iterations, encoder=encoder).content
 
+    def getSalt(self, key):
+        return self.__salt if self.verify(key) else bytes()
+
     def hexlify(self):
         return binascii.hexlify(self.content)
+
+    def codes(self):
+        return [c for c in self.content]
 
 
 class XStripKeyConstruct():
     def __init__(self, key):
         self.__content = key.encode()
 
-    def generateKey(self, iterations=int(), salt=bytes(), encoder=noop):
+    def generateKey(self, hf='sha256', iterations=int(), salt=bytes(), encoder=noop):
         iterations = iterations if iterations else random.choice(
             range(10000, 100000))
         salt = salt if salt else os.urandom(10)
         return XStripKey(encoder(hashlib.pbkdf2_hmac(
-            'sha512', self.__content, salt, iterations)), salt, iterations)
+            hf, self.__content, salt, iterations)), salt, iterations)
+
+
+if __name__ == "__main__":
+    raise Exception(
+        "This is a library not meant to be executed as a standalone script")
