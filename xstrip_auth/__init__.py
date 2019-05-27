@@ -38,18 +38,14 @@ class XStripKey():
         return self.__compiled_export.match(self.__base64.b64decode(bytes(content)).decode()).groupdict()
 
     def __repr__(self):
-        return "[\x1b[32m%s\x1b[0m](\x1b[36m%d\x1b[0m): \x1b[33m%a\x1b[0m" % (self.__hf, len(self.content), self.hex.decode())
+        return "[\x1b[32m%s\x1b[0m](\x1b[36m%d\x1b[0m): \x1b[33m%a\x1b[0m" % (self.__hf, len(self.__encoded), self.hex.decode())
 
     def __eq__(self, other):
         return type(other) == XStripKey and self.__salt == other.__salt and self.__iterations == other.__iterations and self.__hf == self.__hf and self.__encoded == self.__encoded
 
     @property
-    def content(self):
-        return self.__encoded
-
-    @property
     def hex(self):
-        return self.content.hex().encode()
+        return self.__encoded.hex().encode()
 
     @property
     def hf(self):
@@ -64,7 +60,7 @@ class XStripKey():
         return self.__iterations
 
     def verify(self, key, encoder=noop):
-        return self.__encoded == XStripKeyConstruct(key, iterations=self.iterations).generateKey(salt=self.salt, encoder=encoder).content
+        return self.__encoded == XStripKeyConstruct(key, iterations=self.iterations).generateKey(salt=self.salt, encoder=encoder).__encoded
 
     def matchExec(self, key, fn, *args, encoder=noop):
         return fn(*args) if self.verify(key, encoder) else None
@@ -73,11 +69,11 @@ class XStripKey():
         return fn(*args) if not self.verify(key, encoder) else None
 
     def codes(self):
-        return [code for code in self.content]
+        return [code for code in self.__encoded]
 
     def export(self):
         xprt = "%d:%s/%s" % (self.__iterations,
-                             self.__salt.hex(), self.content.hex())
+                             self.__salt.hex(), self.__encoded.hex())
         return self.__base64.b64encode(bytes(xprt, 'utf8'))
 
     @classmethod
