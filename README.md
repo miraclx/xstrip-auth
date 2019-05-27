@@ -1,1 +1,1 @@
-# xtrip-auth
+# xstrip-auth
