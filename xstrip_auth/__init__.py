@@ -23,9 +23,9 @@ def noop(key):
 class XStripKey():
     from binascii import hexlify as __hexlify
     import base64 as __base64
-    import re
+    import re as __re
 
-    __compiled_export = re.compile(
+    __compiled_export = __re.compile(
         r'(?P<iterations>\d+):(?P<salt>[a-z0-9]+)/(?P<key>[a-f0-9]+)')
 
     def __init__(self, h_ash, salt, iterations=10e4, hf="sha256"):
