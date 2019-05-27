@@ -21,7 +21,6 @@ def noop(key):
 
 
 class XStripKey():
-    from binascii import hexlify as __hexlify
     import base64 as __base64
     import re as __re
 
@@ -50,7 +49,7 @@ class XStripKey():
 
     @property
     def hex(self):
-        return self.__hexlify(self.content)
+        return self.content.hex().encode()
 
     @property
     def hf(self):
