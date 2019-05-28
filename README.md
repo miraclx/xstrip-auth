@@ -152,6 +152,7 @@ print(key.export())
 #### <a id="xstripkey_parse"></a> XStripKey.`parse`(content)
 
 * `fn`: &lt;string | bytes&gt; The exported construct to be parsed
+
 Returns: &lt;[XStripKey](#xstripkey)&gt;
 
 Parse the base64 exported data from [`XStripKey::export`](#xstripkey_export)
