@@ -60,7 +60,7 @@ class XStripKey():
         return self.__iterations
 
     def verify(self, key, encoder=noop):
-        return self.__encoded == XStripKeyConstruct(key, iterations=self.iterations).generateKey(salt=self.salt, encoder=encoder).__encoded
+        return self == XStripKeyConstruct(key, iterations=self.iterations).generateKey(salt=self.salt, encoder=encoder)
 
     def matchExec(self, key, fn, *args, encoder=noop):
         return fn(*args) if self.verify(key, encoder) else None
