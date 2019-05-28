@@ -27,7 +27,7 @@ class XStripKey():
     __compiled_export = __re.compile(
         r'(?P<iterations>\d+):(?P<salt>[a-z0-9]+)/(?P<key>[a-f0-9]+)')
 
-    def __init__(self, h_ash, salt, iterations=10e4, hf="sha256"):
+    def __init__(self, h_ash, salt, iterations=int(10e4), hf="sha256"):
         self.__hf = hf
         self.__salt = bytes(salt)
         self.__encoded = bytes(h_ash)
@@ -89,7 +89,7 @@ class XStripKeyConstruct():
 
     def __init__(self, key, iterations=None):
         self.__content = key.encode() if type(key) is str else bytes(key)
-        self.__iterations = iterations if iterations else 10000
+        self.__iterations = iterations if iterations else int(10e4)
 
     def generateKey(self, hf='sha256', salt=bytes(), encoder=noop):
         salt = salt if salt else self.__urandom(10)
