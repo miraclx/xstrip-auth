@@ -41,7 +41,7 @@ class XStripKey():
         return "[\x1b[32m%s\x1b[0m](\x1b[36m%d\x1b[0m): \x1b[33m%a\x1b[0m" % (self.__hf, len(self.__encoded), self.hex.decode())
 
     def __eq__(self, other):
-        return type(other) == XStripKey and self.__salt == other.__salt and self.__iterations == other.__iterations and self.__hf == self.__hf and self.__encoded == self.__encoded
+        return type(other) == XStripKey and self.__salt == other.__salt and self.__iterations == other.__iterations and self.__hf == other.__hf and self.__encoded == other.__encoded
 
     @property
     def hex(self):
