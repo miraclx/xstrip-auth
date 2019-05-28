@@ -1,5 +1,5 @@
 import base64
-from xtrip_auth import XStripKeyConstruct, XStripKey
+from xstrip_auth import XStripKeyConstruct, XStripKey
 
 construct = XStripKeyConstruct("#P@$$W0R9")
 
