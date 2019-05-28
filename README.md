@@ -79,6 +79,7 @@ Returns the number of iterations used in encoding the key
 
 * `key`: &lt;string&gt;
 * `encoder`: &lt;function&gt;
+
 Returns: &lt;boolean&gt;
 
 Verify whether or not the specified `key` matches the inherent key of the [`self`](#xstripkey) instance
@@ -91,6 +92,7 @@ Returns a boolean for the condition result
 * `fn`: &lt;function&gt;
 * `*args`: &lt;any&gt;
 * `encoder`: &lt;function&gt;
+
 Returns: &lt;any&gt;
 
 Execute the `fn` function if the `key` matches the inherent key of the [`self`](#xstripkey) instance by checking [`self.verify`](#xstripkey_verify)(`key`, `encoder`)
@@ -114,6 +116,7 @@ key.matchExec("#P@$$W0R9", fn, 10)
 * `fn`: &lt;function&gt;
 * `*args`: &lt;any&gt;
 * `encoder`: &lt;function&gt;
+
 Returns: &lt;any&gt;
 
 Execute the `fn` function if the `key` does not match the inherent key of the [`self`](#xstripkey) instance by checking [`self.verify`](#xstripkey_verify)(`key`, `encoder`)
@@ -181,6 +184,7 @@ from xstrip_auth import XStripKeyConstruct
 * `hf`: &lt;string&gt; The hash function to process the key on. Default: **`'sha256'`**
 * `salt`: &lt;string | bytes&gt; The hash to be used on the key when randomising the data. Default: [**<py:os/random>**][pyosrandom]
 * `encoder`: &lt;function&gt; The middleware transformative function. Default: **noop**
+
 Returns: &lt;[XStripKey](#xstripkey)&gt;
 
 Generates a special key for the encapsulated key under special conditions making the product completely random and untied to the operation
