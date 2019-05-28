@@ -35,7 +35,7 @@ class XStripKey():
 
     @classmethod
     def __parseComponents(self, content):
-        return self.__compiled_export.match(self.__base64.b64decode(bytes(content)).decode()).groupdict()
+        return self.__compiled_export.match(self.__base64.b64decode(content.encode() if type(content) is str else bytes(content)).decode()).groupdict()
 
     def __repr__(self):
         return "[\x1b[32m%s\x1b[0m](\x1b[36m%d\x1b[0m): \x1b[33m%a\x1b[0m" % (self.__hf, len(self.__encoded), self.hex.decode())
@@ -88,7 +88,7 @@ class XStripKeyConstruct():
     from hashlib import pbkdf2_hmac as __pbkdf2
 
     def __init__(self, key, iterations=None):
-        self.__content = key.encode()
+        self.__content = key.encode() if type(key) is str else bytes(key)
         self.__iterations = iterations if iterations else 10000
 
     def generateKey(self, hf='sha256', salt=bytes(), encoder=noop):
